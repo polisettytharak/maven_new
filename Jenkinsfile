@@ -1,24 +1,12 @@
 node('master')
 {
-    stage('ContinuousDownload')
+    stage('ContinuousDownload_Master Branch')
     {
         git 'https://github.com/polisettytharak/maven.git'
     }
-    stage('ContinuousBuild')
+
+    stage('ContinuousBuild_Master Branch')
     {
         sh label: '', script: 'mvn package'
-    }
-    stage('ContinuousDeployment')
-    {
-        sh label: '', script: 'scp /home/ubuntu/.jenkins/workspace/pipeline/webapp/target/webapp.war ubuntu@172.31.59.98:/var/lib/tomcat8/webapps/testapp.war'
-    }
-    stage('ContinuousTesting')
-    {
-       git 'https://github.com/polisettytharak/maven.git'
-    }
-	
-    stage('ContinuousDelivery')
-    {
-        sh label: '', script: 'scp /home/ubuntu/.jenkins/workspace/pipeline/webapp/target/webapp.war ubuntu@172.31.60.23:/var/lib/tomcat8/webapps/prodapp.war'
     }
 }
